@@ -11,7 +11,17 @@ var currentValue = 16;
 // discount variables
 var discount = false;
 const DISCOUNT_RATE = 0.75;
+// media query. fixing a bug: on refresh the default price was 8$ on mobile.
+var x = window.matchMedia("(max-width: 600px)");
+//calling mediaFunction on page reload.
+mediaFunction(x);
+x.addListener(mediaFunction);
 
+// checking if the screen width is under 600px, than calling changePrice().
+function mediaFunction(x) {
+  if (x.matches) {
+   changePrice();
+}}
 // changing the PAGEVIEWS "string" number per click on range.
 function changeText(string) {
   $(".viewChange").text(string);
@@ -32,7 +42,7 @@ $("#switchMode").click(function() {
 //when choosing one of the range values,changing currentValue to the input changed
 // calling the changeText() and changePrice().
 // variable with a formula that changed the input into a number between 0-1,
-// that changes that color left to the range thumb. 
+// that changes that color left to  the range thumb.
 $("#customRange").on("change input", function() {
   currentValue = priceRangeChange[$(this).val()];
   changeText(pageViewsChange[$(this).val()]);
